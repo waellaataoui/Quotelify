@@ -14,21 +14,24 @@
     "postinstall": "link-module-alias"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "express": "4.15.4",
     "firebase": "4.2.0",
     "history": "4.7.2",
     "link-module-alias": "^1.2.0",
     "moment": "2.18.1",
     "normalize.css": "7.0.0",
-    "react": "15.6.1",
+    "react": "^16.9.0",
     "react-addons-shallow-compare": "15.6.0",
-    "react-dom": "15.6.1",
+    "react-dom": "^16.9.0",
+    "react-loader-spinner": "^3.1.4",
     "react-modal": "2.2.2",
     "react-redux": "5.0.5",
     "react-router-dom": "4.1.2",
     "redux": "3.7.2",
+    "redux-promise-middleware": "^6.1.1",
     "validator": "8.0.0",
-    "webpack": "3.1.0"
+    "webpack": "^4.40.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "1.x",
@@ -54,15 +57,17 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "1.x",
-    "extract-text-webpack-plugin": "3.0.0",
     "jest": "20.0.4",
+    "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "latest",
-    "react-test-renderer": "15.6.1",
+    "postcss-loader": "^3.0.0",
+    "react-test-renderer": "^16.9.0",
     "redux-mock-store": "1.2.3",
     "redux-thunk": "2.2.0",
-    "sass-loader": "6.0.6",
+    "sass-loader": "8.0.0",
     "style-loader": "0.18.2",
-    "webpack-dev-server": "2.5.1"
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
   },
   "_moduleAliases": {
     "src": "./src"

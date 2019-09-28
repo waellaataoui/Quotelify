@@ -1,0 +1,21 @@
+@import "src/styles/base/variables";
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: $m-size;
+  padding: $m-size;
+  > :nth-of-type(3n + 0) {
+    background: nth($colors, 3);
+  }
+  > :nth-of-type(3n -1) {
+    background: nth($colors, 2);
+  }
+  > :nth-of-type(3n-2) {
+    background: nth($colors, 1);
+  }
+
+  @media (max-width: $desktop-breakpoint) {
+    grid-template-columns: repeat(auto-fill, 100%);
+    padding: $m-size 0;
+  }
+}

@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 if (process.env.NODE_ENV === "test") {
@@ -9,10 +9,9 @@ if (process.env.NODE_ENV === "test") {
 } else if (process.env.NODE_ENV === "development") {
   require("dotenv").config({ path: ".env.development" });
 }
-
 module.exports = (env) => {
   const isProduction = env === "production";
-  const CSSExtract = new ExtractTextPlugin("styles.css");
+  // const CSSExtract = new ExtractTextPlugin("styles.css");
 
   return {
     entry: ["babel-polyfill", "./src/index.js"],
@@ -29,27 +28,37 @@ module.exports = (env) => {
         },
         {
           test: /\.s?css$/,
-          use: CSSExtract.extract({
-            use: [
-              {
-                loader: "css-loader",
-                options: {
-                  sourceMap: true
-                }
-              },
-              {
-                loader: "sass-loader",
-                options: {
-                  sourceMap: true
-                }
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: process.env.NODE_ENV === "development",
+                reloadAll: true
               }
-            ]
-          })
+            },
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
         }
       ]
     },
     plugins: [
-      CSSExtract,
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: isProduction ? "[name].[hash].css" : "[name].css",
+        chunkFilename: isProduction ? "[id].[hash].css" : "[id].css"
+      }),
       new webpack.DefinePlugin({
         "process.env.FIREBASE_API_KEY": JSON.stringify(
           process.env.FIREBASE_API_KEY
@@ -68,14 +77,17 @@ module.exports = (env) => {
         ),
         "process.env.FIREBASE_MESSAGING_SENDER_ID": JSON.stringify(
           process.env.FIREBASE_MESSAGING_SENDER_ID
-        )
+        ),
+        "process.env.FAVQS_API_KEY": JSON.stringify(process.env.FAVQS_API_KEY)
       })
     ],
     devtool: isProduction ? "source-map" : "inline-source-map",
     devServer: {
       contentBase: path.join(__dirname, "public"),
       historyApiFallback: true,
-      publicPath: "/dist/"
+      publicPath: "/dist/",
+      open: true,
+      openPage: ""
     }
   };
 };

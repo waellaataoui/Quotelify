@@ -1,0 +1,36 @@
+@import "src/styles/base/variables";
+.qotd-card {
+  color: #555555;
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  width: 60%;
+  padding: $l-size;
+  font-weight: 500;
+  font-family: poppins, sans-serif;
+  font-size: 2rem;
+  line-height: 1.5;
+  @media (max-width: $desktop-breakpoint) {
+    width: 100%;
+  }
+}
+.qotd-card__body {
+  padding: $m-size 0;
+}
+.qotd-card__author {
+  color: #26a69a;
+  font-size: 1.8rem;
+  text-align: center;
+}
+.qotd-card__actions {
+  font-size: $xl-size;
+  text-align: center;
+  > i {
+    margin: $m-size;
+    color: $pink;
+    cursor: pointer;
+  }
+  > i:hover {
+    color: red;
+  }
+}

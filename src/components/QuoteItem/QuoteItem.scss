@@ -1,0 +1,29 @@
+@import "src/styles/base/variables";
+.grid__item {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.grid__item__footer {
+  display: flex;
+  justify-content: space-between;
+  > p {
+    margin: 0;
+    font-style: italic;
+    font-weight: 300;
+  }
+  > span {
+    margin-top: $s-size;
+    cursor: pointer;
+  }
+}
+.grid__item__body {
+  font-weight: 500;
+  > i {
+    color: white;
+  }
+}

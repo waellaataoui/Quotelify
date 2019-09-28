@@ -1,13 +1,18 @@
 @import "src/styles/base/variables";
 .header {
-  background: $dark-blue;
+  background: #44b7ad;
 }
 
 .header__content {
-  align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: $s-size 0;
+  padding: $m-size 0;
+  @media (max-width: $desktop-breakpoint) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $l-size 0;
+  }
 }
 
 .header__title {
@@ -15,5 +20,23 @@
   text-decoration: none;
   h1 {
     margin: 0;
+    font-family: "Kaushan Script", cursive;
+    font-weight: 400;
+    font-size: 4rem;
+  }
+}
+.header__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > * {
+    padding: 0 $m-size;
+  }
+
+  .active {
+    color: #fb0091;
+  }
+  > :hover {
+    color: #fb0091;
   }
 }
