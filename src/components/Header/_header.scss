@@ -39,4 +39,9 @@
   > :hover {
     color: #fb0091;
   }
+  @media (max-width: $desktop-breakpoint) {
+    > * {
+      padding: $m-size;
+    }
+  }
 }

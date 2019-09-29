@@ -9,6 +9,9 @@ import QuoteItem from "src/components/QuoteItem";
 const QuotesList = ({ faveQuotes, searchedQuotes, faves, loading }) => {
   let quotes = null;
   faves ? (quotes = faveQuotes) : (quotes = searchedQuotes);
+  console.log(quotes);
+  const error = quotes.length === 1 && quotes[0].id === 0;
+
   return (
     <div>
       <div className="centered">
@@ -21,10 +24,16 @@ const QuotesList = ({ faveQuotes, searchedQuotes, faves, loading }) => {
         />
       </div>
       <div className="grid">
-        {quotes.map((quote) => (
-          <QuoteItem key={quote.id} faves={faves} quote={quote}></QuoteItem>
-        ))}
+        {!error &&
+          quotes.map((quote) => (
+            <QuoteItem key={quote.id} faves={faves} quote={quote}></QuoteItem>
+          ))}
       </div>
+      {error && (
+        <p className="center-content error-msg">
+          No quotes found <i className="fas fa-heart-broken"></i>
+        </p>
+      )}
     </div>
   );
 };

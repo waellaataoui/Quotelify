@@ -9,8 +9,8 @@ if (process.env.NODE_ENV === "test") {
 } else if (process.env.NODE_ENV === "development") {
   require("dotenv").config({ path: ".env.development" });
 }
-module.exports = () => {
-  const isProduction = process.env.NODE_ENV === "production";
+module.exports = (mode) => {
+  const isProduction = mode === "production";
   // const CSSExtract = new ExtractTextPlugin("styles.css");
 
   return {
@@ -32,7 +32,7 @@ module.exports = () => {
             {
               loader: MiniCssExtractPlugin.loader,
               options: {
-                hmr: process.env.NODE_ENV === "development",
+                hmr: mode === "development",
                 reloadAll: true
               }
             },
@@ -56,8 +56,8 @@ module.exports = () => {
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: isProduction ? "[name].[hash].css" : "[name].css",
-        chunkFilename: isProduction ? "[id].[hash].css" : "[id].css"
+        filename: "[name].css",
+        chunkFilename: "[id].css"
       }),
       new webpack.DefinePlugin({
         "process.env.FIREBASE_API_KEY": JSON.stringify(

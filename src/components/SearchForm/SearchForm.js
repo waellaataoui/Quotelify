@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { searchQuotesAction } from "src/state/actions/searchActions";
 
-const SearchForm = ({ searchQuotes }) => {
+const SearchForm = ({ searchQuotes, showMore }) => {
   const [page, setpage] = useState(null);
   const [text, setText] = useState("");
   useEffect(() => {
@@ -35,32 +35,37 @@ const SearchForm = ({ searchQuotes }) => {
         />
         <button className="form__button">Go</button>
       </form>
-      <div className="arrows">
-        {page > 1 && (
-          <i
-            onClick={() => {
-              setpage(page - 1);
-            }}
-            className="fas fa-chevron-left"
-          ></i>
-        )}
-        {page && (
-          <i
-            onClick={() => {
-              setpage(page + 1);
-            }}
-            className="fas fa-chevron-right "
-          ></i>
-        )}
-      </div>
+      {showMore && (
+        <div className="arrows">
+          {page > 1 && (
+            <i
+              onClick={() => {
+                setpage(page - 1);
+              }}
+              className="fas fa-chevron-left"
+            ></i>
+          )}
+          {page && (
+            <i
+              onClick={() => {
+                setpage(page + 1);
+              }}
+              className="fas fa-chevron-right "
+            ></i>
+          )}
+        </div>
+      )}
     </div>
   );
 };
 const mapDispatchToProps = (dispatch) => ({
   searchQuotes: (text, page) => dispatch(searchQuotesAction(text, page))
 });
+const mapStateToProps = (state) => ({
+  showMore: state.searchedQuotes.quotes.length > 24
+});
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchForm);
