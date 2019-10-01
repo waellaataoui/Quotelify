@@ -2,6 +2,17 @@
 .header {
   background: #44b7ad;
 }
+.transparent {
+  background: transparent;
+  .header__links > a {
+    color: black;
+    font-weight: 500;
+  }
+  .content-container {
+    max-width: 100%;
+    padding: 0 $l-size;
+  }
+}
 
 .header__content {
   display: flex;
@@ -29,19 +40,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   > * {
     padding: 0 $m-size;
   }
 
   .active {
-    color: #fb0091;
+    color: #fb0091 !important;
   }
-  > :hover {
+  > a:hover {
     color: #fb0091;
   }
   @media (max-width: $desktop-breakpoint) {
     > * {
-      padding: $m-size;
+      padding: $m-size $s-size;
     }
   }
 }

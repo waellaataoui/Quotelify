@@ -1,6 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const TerserJSPlugin = require("terser-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -11,13 +14,19 @@ if (process.env.NODE_ENV === "test") {
 }
 module.exports = (mode) => {
   const isProduction = mode === "production";
-  // const CSSExtract = new ExtractTextPlugin("styles.css");
 
   return {
     entry: ["babel-polyfill", "./src/index.js"],
     output: {
       path: path.join(__dirname, "public", "dist"),
       filename: "bundle.js"
+    },
+    optimization: {
+      minimize: isProduction,
+      minimizer: [
+        new TerserJSPlugin({ sourceMap: true }),
+        new OptimizeCSSAssetsPlugin({ assetNameRegExp: /\.s?css$/ })
+      ]
     },
     module: {
       rules: [
@@ -39,13 +48,13 @@ module.exports = (mode) => {
             {
               loader: "css-loader",
               options: {
-                sourceMap: true
+                sourceMap: !isProduction
               }
             },
             {
               loader: "sass-loader",
               options: {
-                sourceMap: true
+                sourceMap: !isProduction
               }
             }
           ]
@@ -54,8 +63,6 @@ module.exports = (mode) => {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
         filename: "[name].css",
         chunkFilename: "[id].css"
       }),
@@ -79,6 +86,9 @@ module.exports = (mode) => {
           process.env.FIREBASE_MESSAGING_SENDER_ID
         ),
         "process.env.FAVQS_API_KEY": JSON.stringify(process.env.FAVQS_API_KEY)
+      }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: "disabled"
       })
     ],
     devtool: isProduction ? "source-map" : "inline-source-map",

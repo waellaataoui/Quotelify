@@ -1,7 +1,7 @@
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./QuotesList.scss";
 
-import React, { useState } from "react";
+import React from "react";
 import Loader from "react-loader-spinner";
 import { connect } from "react-redux";
 import QuoteItem from "src/components/QuoteItem";

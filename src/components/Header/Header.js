@@ -5,44 +5,52 @@ import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import { startLogout } from "../../state/actions/auth";
 
-export const Header = (props) => (
-  <header className="header">
-    <div className="content-container">
-      <div className="header__content">
-        <Link className="header__title" to="/">
-          <h1>quotelify</h1>
-        </Link>
-        <div className="header__links">
-          <NavLink className="button button--link" exact to="/">
-            QOD
-          </NavLink>
-          <NavLink className="button button--link" exact to="/search">
-            Search
-          </NavLink>
-          <NavLink className="button button--link" exact to="/fav">
-            FAV
-          </NavLink>
-          {props.uid ? (
-            <button
-              className="button button--link "
-              onClick={() => {
-                props
-                  .startLogout()
-                  .then(() => (window.location.href = "/login")); //hard redirect..
-              }}
-            >
-              <i className="fas fa-sign-out-alt"></i> Logout
-            </button>
-          ) : (
-            <Link className="button button--link " to="/login">
-              Login
-            </Link>
-          )}
-        </div>
-      </div>
-    </div>
-  </header>
-);
+export const Header = (props) => {
+  let jsx = null;
+
+  props.history.location.pathname !== "/login" || props.show
+    ? (jsx = (
+        <header className={props.show ? "header transparent" : "header"}>
+          <div className="content-container">
+            <div className="header__content">
+              <Link className="header__title" to="/">
+                <h1>quotelify</h1>
+              </Link>
+              <div className="header__links">
+                <NavLink className="button button--link" exact to="/">
+                  Quote Of The Day
+                </NavLink>
+                <NavLink className="button button--link" exact to="/search">
+                  Search
+                </NavLink>
+                <NavLink className="button button--link" exact to="/fav">
+                  Favourites
+                </NavLink>
+                {props.uid ? (
+                  <button
+                    className="button button--link "
+                    onClick={() => {
+                      props
+                        .startLogout()
+                        .then(() => (window.location.href = "/login")); //hard redirect..
+                    }}
+                  >
+                    <i className="fas fa-sign-out-alt"></i> Logout
+                  </button>
+                ) : (
+                  <NavLink className="button button--link " exact to="/login">
+                    Login
+                  </NavLink>
+                )}
+              </div>
+            </div>
+          </div>
+        </header>
+      ))
+    : (jsx = null);
+
+  return jsx;
+};
 
 const mapDispatchToProps = (dispatch) => ({
   startLogout: () => dispatch(startLogout())
