@@ -21,9 +21,13 @@ export const fetchQuoteOfDay = () => {
     .then((res) => res.data)
     .then((data) => mapQuote(data.quote));
 };
-export const searchQuotes = (text, page) => {
+export const searchQuotes = (text, page, filter) => {
+  let request = null;
+  if (filter === "keyword")
+    request = `${API_BASE_URL}/quotes/?filter=${text}&page=${page}`;
+  else request = `${API_BASE_URL}/quotes/?filter=${text}&type=tag&page=${page}`;
   return axios
-    .get(`${API_BASE_URL}/quotes/?filter=${text}&page=${page}`, requestConfig)
+    .get(request, requestConfig)
     .then((res) => res.data)
     .then((data) => mapQuotes(data.quotes));
 };

@@ -1,6 +1,10 @@
 @import "src/styles/base/variables";
 .header {
   background: #44b7ad;
+  margin-bottom: $m-size;
+  @media (max-width: $desktop-breakpoint) {
+    margin-bottom: $l-size;
+  }
 }
 .transparent {
   background: transparent;
@@ -22,7 +26,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: $l-size 0;
   }
 }
 
@@ -48,7 +51,7 @@
   .active {
     color: #fb0091 !important;
   }
-  > a:hover {
+  > *:hover {
     color: #fb0091;
   }
   @media (max-width: $desktop-breakpoint) {

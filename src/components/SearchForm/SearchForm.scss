@@ -1,9 +1,22 @@
 @import "src/styles/base/variables";
 .form {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  > * {
+    margin: 0 $s-size;
+  }
+  select {
+    border: 1px solid #cacccd;
+    padding: $s-size;
+    font-family: poppins, sans-serif;
+  }
   @media (max-width: $desktop-breakpoint) {
     flex-direction: column;
     align-items: center;
+    > * {
+      margin: $s-size 0;
+    }
   }
 }
 .form__input {
@@ -13,11 +26,9 @@
   font-weight: 400;
   @media (max-width: $desktop-breakpoint) {
     width: 30rem;
-    margin-bottom: $m-size;
   }
 }
 .form__button {
-  margin-left: $m-size;
   padding: $s-size $xl-size;
   border-radius: 16px;
   font-family: poppins, sans-serif;

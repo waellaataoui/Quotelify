@@ -9,7 +9,6 @@ import QuoteItem from "src/components/QuoteItem";
 const QuotesList = ({ faveQuotes, searchedQuotes, faves, loading }) => {
   let quotes = null;
   faves ? (quotes = faveQuotes) : (quotes = searchedQuotes);
-  console.log(quotes);
   const error = quotes.length === 1 && quotes[0].id === 0;
 
   return (

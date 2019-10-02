@@ -16,8 +16,12 @@ const QuoteItem = ({
   isLogged,
   history
 }) => {
+  const itemRef = React.createRef();
+  const added = () => {
+    itemRef.current.classList.add("added");
+  };
   return (
-    <div className="grid__item">
+    <div ref={itemRef} className="grid__item">
       <div className="grid__item__body">
         {" "}
         <i className="fas fa-quote-left"></i> {quote.body}{" "}
@@ -36,10 +40,14 @@ const QuoteItem = ({
           </span>
         ) : (
           <span
-            onClick={() => {
+            onClick={(e) => {
               if (!isLogged) {
                 history.push("/login");
-              } else addFavourite(quote);
+              } else {
+                addFavourite(quote);
+
+                added();
+              }
             }}
             className="fa-stack fa-lg "
           >
