@@ -79,6 +79,18 @@ module.exports = (env) => {
               }
             }
           ]
+        },
+        {
+          test: /\.(jpe?g|png|gif|ico)$/i,
+          use: [
+            {
+              loader: "file-loader",
+              options: {
+                include: path.join(__dirname, "src"),
+                name: "/images/[name].[ext]"
+              }
+            }
+          ]
         }
       ]
     },
